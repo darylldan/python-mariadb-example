@@ -29,7 +29,7 @@ class MariaDBInstance():
             print(f"Error connecting to MariaDB Platform: {e}")
             sys.exit(1)
 
-        # Gets the cursor
+        # Gets the cursor, cursors are used to execute SQL commands
         self.cursor = self.conn.cursor()
 
     # Cursor object getter
