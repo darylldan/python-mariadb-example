@@ -1,4 +1,4 @@
-import mariadb
+import pymysql
 from model.employee import Employee
 from sql.sql_connector import MariaDBInstance
 
@@ -35,7 +35,7 @@ class EmployeeController():
         
         return Employee(*raw_result)
     
-    def insert_employee(self, employee: Employee) -> True | None:
+    def insert_employee(self, employee: Employee) -> bool | None:
         try: 
             self.db.cur().execute(
                 f"INSERT INTO {self.TABLE_NAME} VALUES (?,?,?,?,?,?,?,?)",
@@ -52,14 +52,14 @@ class EmployeeController():
             )
 
             return True
-        except mariadb.Error as e:
+        except pymysql.Error as e:
             print(f"A database error occurred: {e}")
         
             # If this was an INSERT/UPDATE/DELETE, you would call conn.rollback() here
             # to undo any partial changes.
             return None
 
-    def delete_employee_by_empno(self, empno: int) -> True | None:
+    def delete_employee_by_empno(self, empno: int) -> bool | None:
         try:
             self.db.cur().execute(
                 f"DELETE FROM {self.TABLE_NAME} WHERE empno=?",
@@ -67,7 +67,7 @@ class EmployeeController():
             )
 
             return True
-        except mariadb.Error as e:
+        except pymysql.Error as e:
             print(f"A database error occurred: {e}")
 
             return None
