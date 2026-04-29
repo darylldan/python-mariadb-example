@@ -1,4 +1,4 @@
-# Resource: https://mariadb.com/resources/blog/how-to-connect-python-programs-to-mariadb/
+# Resource: https://pymysql.readthedocs.io/en/latest/user/examples.html
 
 from controller.department_controller import DepartmentController
 from controller.employee_controller import EmployeeController
