@@ -27,7 +27,7 @@ class EmployeeController():
         return results
     
     def get_employee_by_id(self, empno: int) -> Employee | None:
-        self.db.cur().execute(f"SELECT * FROM {self.TABLE_NAME} WHERE empno= ?", (empno,)) 
+        self.db.cur().execute(f"SELECT * FROM {self.TABLE_NAME} WHERE empno= %s", (empno,)) 
         raw_result = self.db.cur().fetchone()
 
         if raw_result == None:
@@ -38,7 +38,7 @@ class EmployeeController():
     def insert_employee(self, employee: Employee) -> bool | None:
         try: 
             self.db.cur().execute(
-                f"INSERT INTO {self.TABLE_NAME} VALUES (?,?,?,?,?,?,?,?)",
+                f"INSERT INTO {self.TABLE_NAME} VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
                 (
                     employee.empno,
                     employee.ename,
@@ -62,7 +62,7 @@ class EmployeeController():
     def delete_employee_by_empno(self, empno: int) -> bool | None:
         try:
             self.db.cur().execute(
-                f"DELETE FROM {self.TABLE_NAME} WHERE empno=?",
+                f"DELETE FROM {self.TABLE_NAME} WHERE empno=%s",
                 (empno,)
             )
 
